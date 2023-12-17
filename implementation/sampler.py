@@ -20,21 +20,33 @@ import numpy as np
 
 from funsearch.implementation import evaluator
 from funsearch.implementation import programs_database
-
+from openai import OpenAI
+from dotenv import load_dotenv
 
 class LLM:
   """Language model that predicts continuation of provided source code."""
 
   def __init__(self, samples_per_prompt: int) -> None:
     self._samples_per_prompt = samples_per_prompt
+    load_dotenv()
+    self.client = OpenAI() 
 
-  def _draw_sample(self, prompt: str) -> str:
-    """Returns a predicted continuation of `prompt`."""
-    raise NotImplementedError('Must provide a language model.')
+  def _draw_sample(self, prompt: str , n: int = 1) -> str:
+    """Returns a predicted continuation of `prompt' for a different n times"""
+
+    completion = self.client.chat.completions.create(
+      model="gpt-3.5-turbo",
+      n=n,
+      messages=[
+        {"role": "system", "content": "You are as assistant, skilled in understanding and expanding complex programming concepts with creative flair. You always try to give many different ways for a problem"},
+        {"role": "user", "content": prompt}
+      ]
+    )
+    return [i.message.content for i in completion.choices]
 
   def draw_samples(self, prompt: str) -> Collection[str]:
     """Returns multiple predicted continuations of `prompt`."""
-    return [self._draw_sample(prompt) for _ in range(self._samples_per_prompt)]
+    return self._draw_sample(prompt,n=self._samples_per_prompt)
 
 
 class Sampler:
