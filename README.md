@@ -1,5 +1,30 @@
 # FunSearch
 
+### Saisamrit Surbehera
+
+In this repo, i will try to make the open-source implementation of funsearch. There are several probles which need to be addressed. These include:
+
+* Sampling need to be done in order of 10^6. This means that 0.00020 for 1k token cost of gpt3.5 would translate to about 200$ per answer. I don't have the budget of Google, so let us try to do it locally with massive speed.
+
+* This code is singly threaded. Most of the code has to be modified to be multithreaded. The code doesn't rely much on the GPU so this can be done with a server with a lot of CPUs. 
+
+* The prompt here is basically two priority combined to be one. IMO this is not efficent. 
+
+
+
+### LLM models:
+
+LLM which can be called millions of time effectively very quickly. Hosted locally. The choices of models are:
+* DeepSeek-coder-instruct (1.3B/6.7B). Specifically the deepseek-coder-6.7b-base.Q4_K_M.gguf
+* Salesforce CodeGen2.5-7B-instruct
+
+## Things which need to be done 
+
+* Deploying a code generation model with massive inference speed. Copy techniques either form llama.cpp
+* 
+
+
+
 This repository accompanies the publication
 
 > Romera-Paredes, B. et al. [Mathematical discoveries from program search with large language models](https://www.nature.com/articles/s41586-023-06924-6). *Nature* (2023)
