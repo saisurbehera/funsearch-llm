@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+llm_speed/
+
 # Distribution / packaging
 .Python
 build/
